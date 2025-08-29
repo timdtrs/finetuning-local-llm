@@ -43,19 +43,25 @@ I prepared a **synthetic customer support dataset** with templated examples (ord
 I used MLX’s built-in LoRA fine-tuning module. Example commands:
 
 **Start training:**
+```bash
 python -m mlx_lm lora --config lora_config.yaml --train --data ./data
+```
 
 **Fuse adapter with base model:**
+```bash
 python -m mlx_lm fuse \
   --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
   --adapter adapters/0000100_adapters.safetensors \
   --save-path out/tinyllama-fused
+```
 
 **Generate responses with fused model**
+```bash
 python -m mlx_lm generate \
   --model out/tinyllama-fused \
   --prompt "User: I want to cancel order {{Order Number}}.\nAssistant:" \
   --max-tokens 200
+```
 
 ## Results
 - The model quickly adapted to polite customer support style after only ~100 training steps.
